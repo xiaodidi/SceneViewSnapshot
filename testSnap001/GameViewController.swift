@@ -11,13 +11,19 @@ import QuartzCore
 import SceneKit
 
 class GameViewController: UIViewController {
+    
     @IBOutlet weak var sceneView: SCNView!
-    @IBAction func imageAction(_ sender: AnyObject) {
+    
+    func image(background : UIColor) -> UIImage
+    {
         let scnView = self.sceneView as SCNView
-        let image = scnView.snapshot() as UIImage
-        print("\(image.size.width) : \(image.size.height)")
+        SCNTransaction.begin()
+        scnView.backgroundColor = background
+        SCNTransaction.commit()
+        let img = scnView.snapshot()
+        return img
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,14 +49,8 @@ class GameViewController: UIViewController {
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = SCNLightTypeAmbient
-        ambientLightNode.light!.color = UIColor.darkGray()
+        ambientLightNode.light!.color = UIColor.darkGrayColor()
         scene.rootNode.addChildNode(ambientLightNode)
-        
-        // retrieve the ship node
-        let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
-        
-        // animate the 3d object
-        ship.run(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
         
         // retrieve the SCNView
         let scnView = self.sceneView as SCNView
@@ -65,46 +65,10 @@ class GameViewController: UIViewController {
         scnView.showsStatistics = false
         
         // configure the view
-        scnView.backgroundColor = UIColor.black()
+        scnView.backgroundColor = UIColor.blackColor()
         
         // add a tap gesture recognizer
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        scnView.addGestureRecognizer(tapGesture)
-    }
-    
-    func handleTap(_ gestureRecognize: UIGestureRecognizer) {
-        // retrieve the SCNView
-        let scnView = self.sceneView as SCNView
         
-        // check what nodes are tapped
-        let p = gestureRecognize.location(in: scnView)
-        let hitResults = scnView.hitTest(p, options: nil)
-        // check that we clicked on at least one object
-        if hitResults.count > 0 {
-            // retrieved the first clicked object
-            let result: AnyObject! = hitResults[0]
-            
-            // get its material
-            let material = result.node!.geometry!.firstMaterial!
-            
-            // highlight it
-            SCNTransaction.begin()
-            SCNTransaction.animationDuration = 0.5
-            
-            // on completion - unhighlight
-            SCNTransaction.completionBlock = {
-                SCNTransaction.begin()
-                SCNTransaction.animationDuration = 0.5
-                
-                material.emission.contents = UIColor.black()
-                
-                SCNTransaction.commit()
-            }
-            
-            material.emission.contents = UIColor.red()
-            
-            SCNTransaction.commit()
-        }
     }
     
     override func shouldAutorotate() -> Bool {
@@ -116,16 +80,27 @@ class GameViewController: UIViewController {
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if UIDevice.current().userInterfaceIdiom == .phone {
-            return .allButUpsideDown
-        } else {
-            return .all
-        }
+        return .Landscape
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
     }
-
+    
+    // MARK: Navigation
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)  {
+        if segue.identifier == "showPicture" {
+            let controller = (segue.destinationViewController as! UINavigationController).topViewController as! ShareViewController
+            let imageBlank = image(UIColor.init(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0))
+            let imageWhite = image(UIColor.whiteColor())
+            let imageBlack = image(UIColor.blackColor())
+            let imageSet = [imageBlack, imageBlank, imageWhite]
+            controller.imageSet = imageSet
+        }
+    }
+    
+    
 }
