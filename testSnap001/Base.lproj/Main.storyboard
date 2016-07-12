@@ -21,7 +21,7 @@
                             <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ihV-3T-qd3" userLabel="Scene">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </sceneKitView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aFE-Qi-5Hg">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aFE-Qi-5Hg">
                                 <rect key="frame" x="558" y="558" width="22" height="22"/>
                                 <state key="normal" image="Camera"/>
                                 <connections>
