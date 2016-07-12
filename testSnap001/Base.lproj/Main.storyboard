@@ -21,8 +21,9 @@
                             <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ihV-3T-qd3" userLabel="Scene">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </sceneKitView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aFE-Qi-5Hg">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aFE-Qi-5Hg">
                                 <rect key="frame" x="558" y="558" width="22" height="22"/>
+                                <state key="normal" image="Camera"/>
                                 <connections>
                                     <segue destination="XPK-G8-yFr" kind="show" identifier="showPicture" id="mIp-af-0r1"/>
                                 </connections>
@@ -102,12 +103,16 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BlW-Hc-eEf">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ObZ-mA-xZs">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="ObZ-mA-xZs">
                             <connections>
                                 <action selector="cancel:" destination="R1p-Ei-JZ4" id="G6j-qN-UJ8"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="6Zy-IN-714"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="6Zy-IN-714">
+                            <connections>
+                                <action selector="share:" destination="R1p-Ei-JZ4" id="fhN-5V-rpP"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="imageFrame" destination="7Jm-ei-rBz" id="I9b-Zo-Liq"/>
@@ -116,7 +121,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D7n-fy-P5J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="898" y="30"/>
+            <point key="canvasLocation" x="931" y="30"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A5Y-xL-lLX">
@@ -137,4 +142,7 @@
             <point key="canvasLocation" x="203" y="30"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Camera" width="22" height="22"/>
+    </resources>
 </document>

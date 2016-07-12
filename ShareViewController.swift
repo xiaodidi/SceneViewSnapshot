@@ -9,6 +9,11 @@
 import UIKit
 
 class ShareViewController: UIViewController {
+    
+    var index : Int = 0
+    
+    var imageSet : [UIImage] = []
+
     @IBAction func cancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -16,10 +21,14 @@ class ShareViewController: UIViewController {
     @IBOutlet weak var segments: UISegmentedControl!
     @IBAction func segDone(sender: AnyObject) {
         let seg = sender as! UISegmentedControl
-        let idx = seg.selectedSegmentIndex
-        setImage(idx)
+        self.index = seg.selectedSegmentIndex
+        setImage(index)
     }
-    
+    @IBAction func share(sender: AnyObject) {
+        let activityController = UIActivityViewController (activityItems: [imageSet[index] as UIImage], applicationActivities: nil)
+        activityController.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+        presentViewController(activityController, animated: true, completion: nil)
+    }
     
     func setImage(index : Int)
     {
@@ -27,15 +36,10 @@ class ShareViewController: UIViewController {
         pic.image = imageSet[index]
     }
     
-    var imageSet : [UIImage] = [] {
-        didSet {
-            // Update the view.
-        }
-    }
     
     func configureView() {
-        segments.selectedSegmentIndex = 0
-        setImage(0)
+        segments.selectedSegmentIndex = index
+        setImage(index)
     }
     
     
